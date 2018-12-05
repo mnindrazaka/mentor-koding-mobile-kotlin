@@ -5,6 +5,8 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
@@ -12,6 +14,7 @@ import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.api.cache.http.HttpCachePolicy
 import com.apollographql.apollo.exception.ApolloException
 import com.apollographql.apollo.sample.ProfileQuery
+import com.example.aka.mentorkoding.adapter.SkillAdapter
 import com.example.aka.mentorkoding.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {
@@ -42,8 +45,17 @@ class ProfileActivity : AppCompatActivity() {
                 }
                 override fun onResponse(response: Response<ProfileQuery.Data>) {
                     binding.profile = response.data()?.profile()
+                    runOnUiThread {
+                        setupRecyclerView()
+                    }
                 }
             })
+    }
+
+    private fun setupRecyclerView() {
+        val skillAdapter = SkillAdapter(binding.profile!!.skills()!!)
+        binding.recyclerViewSkill.adapter = skillAdapter
+        binding.recyclerViewSkill.layoutManager = LinearLayoutManager(this)
     }
 
     private fun moveToUpdateProfile() {
