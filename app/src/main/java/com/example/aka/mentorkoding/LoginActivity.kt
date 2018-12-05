@@ -5,6 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
@@ -30,7 +31,11 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.editTextPassword.text.toString()
         val loginQuery = LoginQuery.builder().username(username).password(password).build()
         apolloClient.query(loginQuery).enqueue(object : ApolloCall.Callback<LoginQuery.Data>() {
-            override fun onFailure(e: ApolloException) {}
+            override fun onFailure(e: ApolloException) {
+                runOnUiThread {
+                    Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }
             override fun onResponse(response: Response<LoginQuery.Data>) {
                 saveToken(response.data()?.login())
                 runOnUiThread {

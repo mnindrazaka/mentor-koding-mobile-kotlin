@@ -11,6 +11,7 @@ import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.apollographql.apollo.sample.ProfileQuery
 import com.apollographql.apollo.sample.UpdateUserMutation
+import com.apollographql.apollo.sample.type.SocialMediaInput
 import com.apollographql.apollo.sample.type.UserUpdate
 import com.example.aka.mentorkoding.databinding.ActivityUpdateProfileBinding
 
@@ -32,7 +33,11 @@ class UpdateProfileActivity : AppCompatActivity() {
     private fun getProfile() {
         val profileQuery = ProfileQuery.builder().build()
         apolloClient.query(profileQuery).enqueue(object : ApolloCall.Callback<ProfileQuery.Data>() {
-            override fun onFailure(e: ApolloException) {}
+            override fun onFailure(e: ApolloException) {
+                runOnUiThread {
+                    Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }
             override fun onResponse(response: Response<ProfileQuery.Data>) {
                 binding.profile = response.data()?.profile()
             }
@@ -43,16 +48,32 @@ class UpdateProfileActivity : AppCompatActivity() {
         val name = binding.editTextName.text.toString()
         val phone = binding.editTextPhone.text.toString()
         val address = binding.editTextAddress.text.toString()
+        val github = binding.editTextGithub.text.toString()
+        val linkedin = binding.editTextLinkedin.text.toString()
+        val facebook = binding.editTextFacebook.text.toString()
+        val instagram = binding.editTextInstagram.text.toString()
+        val socialMedia = SocialMediaInput
+            .builder()
+            .github(github)
+            .linkedin(linkedin)
+            .facebook(facebook)
+            .instagram(instagram)
+            .build()
         val user = UserUpdate
             .builder()
             .name(name)
             .phone(phone)
             .address(address)
+            .socialMedia(socialMedia)
             .build()
 
         val updateUserMutation = UpdateUserMutation.builder().user(user).build()
         apolloClient.mutate(updateUserMutation).enqueue(object : ApolloCall.Callback<UpdateUserMutation.Data>() {
-            override fun onFailure(e: ApolloException) {}
+            override fun onFailure(e: ApolloException) {
+                runOnUiThread {
+                    Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }
 
             override fun onResponse(response: Response<UpdateUserMutation.Data>) {
                 runOnUiThread {

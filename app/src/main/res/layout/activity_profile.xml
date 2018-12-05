@@ -8,95 +8,185 @@
     </data>
 
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
       android:orientation="vertical"
-      android:padding="15dp">
-
-        <android.support.v7.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+        <ScrollView
+          android:layout_weight="1"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="15dp">
+          android:layout_height="match_parent">
             <LinearLayout
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:padding="15dp"
-              android:orientation="vertical">
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="15dp">
 
-                <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Informasi Dasar"
-                  android:textSize="20sp"/>
-
-                <TextView
-                  android:layout_marginTop="15dp"
+                <android.support.v7.widget.CardView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:text="Username"/>
+                  android:layout_marginBottom="15dp">
+                    <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="15dp"
+                      android:orientation="vertical">
 
-                <TextView
-                  android:id="@+id/text_view_username"
+                        <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Basic Information"
+                          android:textSize="20sp"/>
+
+                        <TextView
+                          android:layout_marginTop="15dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Username"/>
+
+                        <TextView
+                          android:id="@+id/text_view_username"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:text="@{profile.username()}"/>
+
+                        <TextView
+                          android:layout_marginTop="15dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Name"/>
+
+                        <TextView
+                          android:id="@+id/text_view_name"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:text="@{profile.name()}"/>
+
+                        <TextView
+                          android:layout_marginTop="15dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Address"/>
+
+                        <TextView
+                          android:id="@+id/text_view_address"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:text="@{profile.address()}"/>
+
+                        <TextView
+                          android:layout_marginTop="15dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Phone"/>
+
+                        <TextView
+                          android:id="@+id/text_view_phone"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:text="@{profile.phone()}"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:textStyle="bold"
-                  android:text="@{profile.username()}"/>
+                  android:layout_marginBottom="15dp">
+                    <LinearLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="15dp"
+                      android:orientation="vertical">
 
-                <TextView
-                  android:layout_marginTop="15dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:text="Name"/>
+                        <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:text="Social Media"
+                          android:textSize="20sp"/>
 
-                <TextView
-                  android:id="@+id/text_view_name"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:textStyle="bold"
-                  android:text="@{profile.name()}"/>
+                        <TextView
+                          android:layout_marginTop="15dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Github"/>
 
-                <TextView
-                  android:layout_marginTop="15dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:text="Address"/>
+                        <TextView
+                          android:id="@+id/text_view_github"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:text="@{profile.socialMedia().github()}"/>
 
-                <TextView
-                  android:id="@+id/text_view_address"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:textStyle="bold"
-                  android:text="@{profile.address()}"/>
+                        <TextView
+                          android:layout_marginTop="15dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Linkedin"/>
 
-                <TextView
-                  android:layout_marginTop="15dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:text="Phone"/>
+                        <TextView
+                          android:id="@+id/text_view_linkedin"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:text="@{profile.socialMedia().linkedin()}"/>
 
-                <TextView
-                  android:id="@+id/text_view_phone"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:textStyle="bold"
-                  android:text="@{profile.phone()}"/>
+                        <TextView
+                          android:layout_marginTop="15dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Facebook"/>
+
+                        <TextView
+                          android:id="@+id/text_view_facebook"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:text="@{profile.socialMedia().facebook()}"/>
+
+                        <TextView
+                          android:layout_marginTop="15dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="Instagram"/>
+
+                        <TextView
+                          android:id="@+id/text_view_instagram"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textSize="16sp"
+                          android:textStyle="bold"
+                          android:text="@{profile.socialMedia().instagram()}"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </ScrollView>
 
-        <Button
-          android:id="@+id/button_update"
+        <LinearLayout
+          android:layout_weight="5"
+          android:orientation="vertical"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Update Profile"/>
+          android:layout_height="match_parent">
+            <Button
+              android:id="@+id/button_update"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Update Profile"/>
 
-        <Button
-          android:id="@+id/button_logout"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Logout"/>
+            <Button
+              android:id="@+id/button_logout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Logout"/>
+        </LinearLayout>
     </LinearLayout>
 </layout>
