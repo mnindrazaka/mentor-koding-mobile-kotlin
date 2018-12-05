@@ -2,7 +2,10 @@ package com.example.aka.mentorkoding
 
 import android.content.Context
 import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.cache.http.ApolloHttpCache
+import com.apollographql.apollo.cache.http.DiskLruHttpCacheStore
 import okhttp3.OkHttpClient
+import java.io.File
 
 class ApolloGateway(var context: Context) {
 
@@ -10,6 +13,7 @@ class ApolloGateway(var context: Context) {
         return ApolloClient
             .builder()
             .serverUrl("https://mentor-microservice-gateway.herokuapp.com/graphql")
+            .httpCache(createHttpCache())
             .okHttpClient(createOkHttp())
             .build()
     }
@@ -23,5 +27,12 @@ class ApolloGateway(var context: Context) {
             }
         }
         return okHttpClient.build()
+    }
+
+    private fun createHttpCache(): ApolloHttpCache {
+        val file = File("/cache/")
+        val size = 1024 * 1024
+        val cacheStore = DiskLruHttpCacheStore(file, size.toLong())
+        return ApolloHttpCache(cacheStore)
     }
 }

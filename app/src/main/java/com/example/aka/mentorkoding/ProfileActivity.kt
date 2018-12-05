@@ -8,14 +8,15 @@ import android.os.Bundle
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
+import com.apollographql.apollo.api.cache.http.HttpCachePolicy
 import com.apollographql.apollo.exception.ApolloException
 import com.apollographql.apollo.sample.ProfileQuery
 import com.example.aka.mentorkoding.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {
 
-    private lateinit var apolloClient : ApolloClient
-    lateinit var binding : ActivityProfileBinding
+    private lateinit var apolloClient: ApolloClient
+    lateinit var binding: ActivityProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +30,15 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun getProfile() {
         val profileQuery = ProfileQuery.builder().build()
-        apolloClient.query(profileQuery).enqueue(object : ApolloCall.Callback<ProfileQuery.Data>() {
-            override fun onFailure(e: ApolloException) {}
-            override fun onResponse(response: Response<ProfileQuery.Data>) {
-                binding.profile = response.data()?.profile()
-            }
-        })
+        apolloClient
+            .query(profileQuery)
+            .httpCachePolicy(HttpCachePolicy.NETWORK_FIRST)
+            .enqueue(object : ApolloCall.Callback<ProfileQuery.Data>() {
+                override fun onFailure(e: ApolloException) {}
+                override fun onResponse(response: Response<ProfileQuery.Data>) {
+                    binding.profile = response.data()?.profile()
+                }
+            })
     }
 
     private fun moveToUpdateProfile() {

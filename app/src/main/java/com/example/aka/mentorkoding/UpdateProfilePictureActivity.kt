@@ -11,10 +11,4 @@ class UpdateProfilePictureActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_profile_picture)
     }
-
-    private fun openCamera() {
-        if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-
-        }
-    }
 }
