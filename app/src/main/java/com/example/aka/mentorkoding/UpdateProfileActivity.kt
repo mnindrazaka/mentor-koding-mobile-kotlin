@@ -68,7 +68,9 @@ class UpdateProfileActivity : AppCompatActivity() {
             .build()
 
         val updateUserMutation = UpdateUserMutation.builder().user(user).build()
-        apolloClient.mutate(updateUserMutation).enqueue(object : ApolloCall.Callback<UpdateUserMutation.Data>() {
+        apolloClient
+            .mutate(updateUserMutation)
+            .enqueue(object : ApolloCall.Callback<UpdateUserMutation.Data>() {
             override fun onFailure(e: ApolloException) {
                 runOnUiThread {
                     Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()

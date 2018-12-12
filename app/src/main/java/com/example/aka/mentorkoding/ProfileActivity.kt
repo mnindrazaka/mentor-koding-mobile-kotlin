@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
@@ -16,6 +15,10 @@ import com.apollographql.apollo.exception.ApolloException
 import com.apollographql.apollo.sample.ProfileQuery
 import com.example.aka.mentorkoding.adapter.SkillAdapter
 import com.example.aka.mentorkoding.databinding.ActivityProfileBinding
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.util.Base64
+
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -26,6 +29,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
         binding.buttonUpdate.setOnClickListener { moveToUpdateProfile() }
+        binding.imageViewPhoto.setOnClickListener { moveToUpdateProfilePicture() }
         binding.buttonLogout.setOnClickListener { logout() }
 
         apolloClient = ApolloGateway(this).createClient()
@@ -47,6 +51,7 @@ class ProfileActivity : AppCompatActivity() {
                     binding.profile = response.data()?.profile()
                     runOnUiThread {
                         setupRecyclerView()
+                        setupPhoto(binding.profile?.profilePic())
                     }
                 }
             })
@@ -58,8 +63,18 @@ class ProfileActivity : AppCompatActivity() {
         binding.recyclerViewSkill.layoutManager = LinearLayoutManager(this)
     }
 
+    private fun setupPhoto(encodedImage : String?): Bitmap? {
+        val decodedString = Base64.decode(encodedImage, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+    }
+
     private fun moveToUpdateProfile() {
         val intent = Intent(this, UpdateProfileActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun moveToUpdateProfilePicture() {
+        val intent = Intent(this, UpdateProfilePictureActivity::class.java)
         startActivity(intent)
     }
 
