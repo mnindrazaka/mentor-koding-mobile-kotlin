@@ -28,8 +28,9 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
-        binding.buttonUpdate.setOnClickListener { moveToUpdateProfile() }
-        binding.imageViewPhoto.setOnClickListener { moveToUpdateProfilePicture() }
+        binding.imageViewPhoto.setOnClickListener { moveToUpdateProfile(UpdateProfilePictureActivity::class.java) }
+        binding.cardViewBasic.setOnClickListener { moveToUpdateProfile(UpdateProfileBasicActivity::class.java) }
+        binding.cardViewSosmed.setOnClickListener { moveToUpdateProfile(UpdateProfileSosmedActivity::class.java) }
         binding.buttonLogout.setOnClickListener { logout() }
 
         apolloClient = ApolloGateway(this).createClient()
@@ -64,17 +65,16 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun setupPhoto(encodedImage : String?): Bitmap? {
-        val decodedString = Base64.decode(encodedImage, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+        if (!encodedImage.isNullOrEmpty()) {
+            val decodedString = Base64.decode(encodedImage, Base64.DEFAULT)
+            return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size) as Nothing?
+        } else {
+            return null
+        }
     }
 
-    private fun moveToUpdateProfile() {
-        val intent = Intent(this, UpdateProfileActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun moveToUpdateProfilePicture() {
-        val intent = Intent(this, UpdateProfilePictureActivity::class.java)
+    private fun moveToUpdateProfile(activity : Class<*>) {
+        val intent = Intent(this, activity)
         startActivity(intent)
     }
 

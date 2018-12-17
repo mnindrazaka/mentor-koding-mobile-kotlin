@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable
+      name="profile"
+      type="com.apollographql.apollo.sample.ProfileQuery.Profile"
+    />
+  </data>
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
+
+        <TextView
+          android:layout_marginBottom="15dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Update Profile"
+          android:textSize="25sp"/>
+
+        <android.support.v7.widget.CardView
+          android:layout_marginBottom="15dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+              android:layout_marginBottom="15dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Basic Info"
+              android:textSize="20sp"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Name"/>
+
+            <EditText
+              android:id="@+id/edit_text_name"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@{profile.name()}"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Address"/>
+
+            <EditText
+              android:id="@+id/edit_text_address"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@{profile.address()}"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Phone"/>
+
+            <EditText
+              android:id="@+id/edit_text_phone"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="@{profile.phone()}"/>
+
+          </LinearLayout>
+        </android.support.v7.widget.CardView>
+      </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+      android:layout_weight="5"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <Button
+        android:id="@+id/button_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="submit"/>
+
+      <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="cancel"/>
+    </LinearLayout>
+  </LinearLayout>
+
+</layout>
