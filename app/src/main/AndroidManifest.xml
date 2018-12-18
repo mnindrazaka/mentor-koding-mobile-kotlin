@@ -28,10 +28,6 @@
       android:label="@string/title_activity_main"
       android:theme="@style/AppTheme.NoActionBar">
     </activity>
-    <activity android:name=".ProfileActivity">
-    </activity>
-    <activity android:name=".UpdateProfileActivity">
-    </activity>
     <activity android:name=".UpdateProfilePictureActivity">
     </activity>
     <activity android:name=".UpdateProfileBasicActivity">
@@ -41,6 +37,8 @@
     <activity android:name=".UpdateProfileSkillActivity">
     </activity>
     <activity android:name=".SignupBasicActivity">
+    </activity>
+    <activity android:name=".SearchResultActivity">
     </activity>
   </application>
 
