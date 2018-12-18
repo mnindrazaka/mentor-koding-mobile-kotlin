@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-class SkillAdapter(val skills : List<String>) : RecyclerView.Adapter<SkillAdapter.ViewHolder>() {
+class SkillAdapter(val skills : List<String>, val listener: (Int) -> Unit) : RecyclerView.Adapter<SkillAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = TextView(parent.context)
@@ -18,6 +18,9 @@ class SkillAdapter(val skills : List<String>) : RecyclerView.Adapter<SkillAdapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.text_view_skill.text = skills[position]
+        holder.text_view_skill.setOnClickListener {
+            listener(position)
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

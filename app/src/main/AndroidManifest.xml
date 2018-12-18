@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".UpdateProfileSosmedActivity">
         </activity>
+        <activity android:name=".UpdateProfileSkillActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -17,7 +17,9 @@ import com.example.aka.mentorkoding.adapter.SkillAdapter
 import com.example.aka.mentorkoding.databinding.ActivityProfileBinding
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import android.support.v7.widget.RecyclerView
 import android.util.Base64
+import android.widget.ArrayAdapter
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -30,6 +32,7 @@ class ProfileActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
         binding.imageViewPhoto.setOnClickListener { moveToUpdateProfile(UpdateProfilePictureActivity::class.java) }
         binding.cardViewBasic.setOnClickListener { moveToUpdateProfile(UpdateProfileBasicActivity::class.java) }
+        binding.cardViewSkill.setOnClickListener { moveToUpdateProfile(UpdateProfileSkillActivity::class.java) }
         binding.cardViewSosmed.setOnClickListener { moveToUpdateProfile(UpdateProfileSosmedActivity::class.java) }
         binding.buttonLogout.setOnClickListener { logout() }
 
@@ -59,8 +62,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        val skillAdapter = SkillAdapter(binding.profile!!.skills()!!)
-        binding.recyclerViewSkill.adapter = skillAdapter
+        binding.recyclerViewSkill.adapter = SkillAdapter(binding.profile!!.skills()!!) {}
         binding.recyclerViewSkill.layoutManager = LinearLayoutManager(this)
     }
 
