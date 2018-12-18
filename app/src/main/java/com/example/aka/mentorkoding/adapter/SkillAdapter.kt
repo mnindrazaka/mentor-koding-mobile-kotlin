@@ -1,15 +1,17 @@
 package com.example.aka.mentorkoding.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import com.example.aka.mentorkoding.databinding.LayoutSkillBinding
+import org.jetbrains.anko.sdk27.coroutines.onClick
 
 class SkillAdapter(val skills : List<String>, val listener: (Int) -> Unit) : RecyclerView.Adapter<SkillAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = TextView(parent.context)
-        return ViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = LayoutSkillBinding.inflate(inflater)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -17,13 +19,11 @@ class SkillAdapter(val skills : List<String>, val listener: (Int) -> Unit) : Rec
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.text_view_skill.text = skills[position]
-        holder.text_view_skill.setOnClickListener {
+        holder.binding.skill = skills[position]
+        holder.itemView.onClick {
             listener(position)
         }
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val text_view_skill = view as TextView
-    }
+    class ViewHolder(val binding: LayoutSkillBinding) : RecyclerView.ViewHolder(binding.root)
 }

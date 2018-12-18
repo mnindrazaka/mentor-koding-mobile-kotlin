@@ -75,7 +75,7 @@ class UpdateProfilePictureActivity : AppCompatActivity() {
     }
 
     private fun moveToProfile() {
-        val intent = Intent(this, ProfileActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 }
