@@ -68,12 +68,10 @@ class ProfileActivity : Fragment() {
         binding.recyclerViewSkill.layoutManager = LinearLayoutManager(activity)
     }
 
-    private fun setupPhoto(encodedImage : String?): Bitmap? {
-        return if (!encodedImage.isNullOrEmpty()) {
+    private fun setupPhoto(encodedImage : String?) {
+        if (!encodedImage.isNullOrEmpty()) {
             val decodedString = Base64.decode(encodedImage, Base64.DEFAULT)
-            BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size) as Nothing?
-        } else {
-            null
+            binding.imageViewPhoto.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size))
         }
     }
 

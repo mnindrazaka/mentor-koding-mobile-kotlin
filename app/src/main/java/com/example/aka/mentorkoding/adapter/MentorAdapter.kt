@@ -1,6 +1,8 @@
 package com.example.aka.mentorkoding.adapter
 
+import android.graphics.BitmapFactory
 import android.support.v7.widget.RecyclerView
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.apollographql.apollo.sample.SearchQuery
@@ -25,6 +27,11 @@ class MentorAdapter(val mentors : List<SearchQuery.Search>, val listener: (Int) 
         holder.binding.mentor = mentors[position]
         holder.itemView.onClick {
             listener(position)
+        }
+
+        if (!mentors[position].profilePic().isNullOrEmpty()) {
+            val decodedString = Base64.decode(mentors[position].profilePic(), Base64.DEFAULT)
+            holder.binding.imageViewPhoto.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size))
         }
     }
 

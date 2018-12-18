@@ -21,9 +21,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+          android:layout_marginRight="10dp"
+          android:src="@drawable/ic_launcher_background"
+          android:id="@+id/image_view_photo"
+          android:layout_width="50dp"
+          android:layout_height="50dp"/>
+
         <TextView
           android:id="@+id/text_view_skill"
-          android:text="@{mentor.username()}"
+          android:text="Herlina"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"/>
 
