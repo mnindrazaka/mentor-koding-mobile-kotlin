@@ -11,22 +11,23 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.apollographql.apollo.sample.LoginQuery
-import com.example.aka.mentorkoding.databinding.ActivityLoginBinding
+import com.example.aka.mentorkoding.databinding.ActivitySigninBinding
 
-class LoginActivity : AppCompatActivity() {
+class SigninActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding : ActivitySigninBinding
     private lateinit var apolloClient : ApolloClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         apolloClient = ApolloGateway(applicationContext).createClient()
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        binding.buttonLogin.setOnClickListener { login() }
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_signin)
+        binding.buttonSignin.setOnClickListener { signin() }
+        binding.buttonSignup.setOnClickListener { signup() }
         checkAuth()
     }
 
-    private fun login() {
+    private fun signin() {
         val username = binding.editTextUsername.text.toString()
         val password = binding.editTextPassword.text.toString()
         val loginQuery = LoginQuery.builder().username(username).password(password).build()
@@ -63,6 +64,11 @@ class LoginActivity : AppCompatActivity() {
         if (getSharedPreferences("auth", Context.MODE_PRIVATE).contains("token")) {
             moveToProfile()
         }
+    }
+
+    private fun signup() {
+        val intent = Intent(this, SignupBasicActivity::class.java)
+        startActivity(intent)
     }
 
     private fun moveToProfile() {

@@ -17,9 +17,7 @@ import com.example.aka.mentorkoding.adapter.SkillAdapter
 import com.example.aka.mentorkoding.databinding.ActivityProfileBinding
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
-import android.support.v7.widget.RecyclerView
 import android.util.Base64
-import android.widget.ArrayAdapter
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -90,7 +88,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun moveToLogin() {
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, SigninActivity::class.java)
         startActivity(intent)
     }
 }
