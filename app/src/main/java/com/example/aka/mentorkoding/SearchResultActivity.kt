@@ -1,21 +1,26 @@
 package com.example.aka.mentorkoding
 
+import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.apollographql.apollo.ApolloCall
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.exception.ApolloException
 import com.apollographql.apollo.sample.SearchQuery
+import com.example.aka.mentorkoding.adapter.MentorAdapter
+import com.example.aka.mentorkoding.databinding.ActivitySearchResultBinding
 
 class SearchResultActivity : AppCompatActivity() {
 
     private lateinit var apolloClient: ApolloClient
+    lateinit var binding: ActivitySearchResultBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_result)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_search_result)
 
         apolloClient = ApolloGateway(this).createClient()
         getMentor()
@@ -32,12 +37,15 @@ class SearchResultActivity : AppCompatActivity() {
             }
 
             override fun onResponse(response: Response<SearchQuery.Data>) {
-                setupRecyclerView(response.data()!!.search()!!)
+                runOnUiThread {
+                    setupRecyclerView(response.data()!!.search()!!)
+                }
             }
         })
     }
 
     private fun setupRecyclerView(mentors: MutableList<SearchQuery.Search>) {
-        
+        binding.recyclerViewMentor.adapter = MentorAdapter(mentors) { }
+        binding.recyclerViewMentor.layoutManager = LinearLayoutManager(this)
     }
 }
