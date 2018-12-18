@@ -11,7 +11,7 @@ import com.example.aka.mentorkoding.databinding.LayoutMentorBinding
 import com.example.aka.mentorkoding.databinding.LayoutSkillBinding
 import org.jetbrains.anko.sdk27.coroutines.onClick
 
-class MentorAdapter(val mentors : List<SearchQuery.Search>, val listener: (Int) -> Unit) : RecyclerView.Adapter<MentorAdapter.ViewHolder>() {
+class MentorAdapter(val mentors : List<SearchQuery.Search>, val listener: (SearchQuery.Search) -> Unit) : RecyclerView.Adapter<MentorAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -26,7 +26,7 @@ class MentorAdapter(val mentors : List<SearchQuery.Search>, val listener: (Int) 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.mentor = mentors[position]
         holder.itemView.onClick {
-            listener(position)
+            listener(mentors[position])
         }
 
         if (!mentors[position].profilePic().isNullOrEmpty()) {

@@ -1,5 +1,6 @@
 package com.example.aka.mentorkoding
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -45,7 +46,15 @@ class SearchResultActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(mentors: MutableList<SearchQuery.Search>) {
-        binding.recyclerViewMentor.adapter = MentorAdapter(mentors) { }
+        binding.recyclerViewMentor.adapter = MentorAdapter(mentors) {
+                mentor ->  mentorProfile(mentor)
+        }
         binding.recyclerViewMentor.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun mentorProfile(mentor: SearchQuery.Search) {
+        val intent = Intent(this, MentorProfileActivity::class.java)
+        intent.putExtra("_id", mentor._id())
+        startActivity(intent)
     }
 }

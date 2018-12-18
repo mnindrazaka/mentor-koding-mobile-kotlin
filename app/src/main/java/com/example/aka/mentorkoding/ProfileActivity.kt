@@ -16,7 +16,6 @@ import com.apollographql.apollo.sample.ProfileQuery
 import com.example.aka.mentorkoding.adapter.SkillAdapter
 import com.example.aka.mentorkoding.databinding.ActivityProfileBinding
 import android.graphics.BitmapFactory
-import android.graphics.Bitmap
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +29,7 @@ class ProfileActivity : Fragment() {
     lateinit var binding: ActivityProfileBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater!!, R.layout.activity_profile, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.activity_profile, container, false)
         binding.imageViewPhoto.setOnClickListener { moveToUpdateProfile(UpdateProfilePictureActivity::class.java) }
         binding.cardViewBasic.setOnClickListener { moveToUpdateProfile(UpdateProfileBasicActivity::class.java) }
         binding.cardViewSkill.setOnClickListener { moveToUpdateProfile(UpdateProfileSkillActivity::class.java) }

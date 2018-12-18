@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+    <variable name="profile" type="com.apollographql.apollo.sample.UserQuery.User"/>
+  </data>
+
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <ImageView
+          android:layout_gravity="center"
+          android:layout_marginVertical="15dp"
+          android:src="@drawable/ic_launcher_background"
+          android:id="@+id/image_view_photo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.CardView
+          android:id="@+id/card_view_basic"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="15dp">
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:orientation="vertical">
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Basic Information"
+              android:textSize="20sp"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Username"/>
+
+            <TextView
+              android:id="@+id/text_view_username"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:text="@{profile.username()}"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Name"/>
+
+            <TextView
+              android:id="@+id/text_view_name"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:text="@{profile.name()}"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Address"/>
+
+            <TextView
+              android:id="@+id/text_view_address"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:text="@{profile.address()}"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Phone"/>
+
+            <TextView
+              android:id="@+id/text_view_phone"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:text="@{profile.phone()}"/>
+          </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+          android:id="@+id/card_view_skill"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="15dp">
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:orientation="vertical">
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Skill"
+              android:textSize="20sp"/>
+
+            <android.support.v7.widget.RecyclerView
+              android:id="@+id/recycler_view_skill"
+              android:layout_width="match_parent"
+              android:layout_height="120dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+          </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+          android:id="@+id/card_view_sosmed"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="15dp">
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:orientation="vertical">
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Social Media"
+              android:textSize="20sp"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Github"/>
+
+            <TextView
+              android:id="@+id/text_view_github"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:text="@{profile.socialMedia().github()}"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Linkedin"/>
+
+            <TextView
+              android:id="@+id/text_view_linkedin"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:text="@{profile.socialMedia().linkedin()}"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Facebook"/>
+
+            <TextView
+              android:id="@+id/text_view_facebook"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:text="@{profile.socialMedia().facebook()}"/>
+
+            <TextView
+              android:layout_marginTop="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Instagram"/>
+
+            <TextView
+              android:id="@+id/text_view_instagram"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:text="@{profile.socialMedia().instagram()}"/>
+          </LinearLayout>
+        </android.support.v7.widget.CardView>
+      </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+      android:layout_weight="12"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <Button
+        android:id="@+id/button_create_meetup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create Meetup"/>
+    </LinearLayout>
+  </LinearLayout>
+</layout>
