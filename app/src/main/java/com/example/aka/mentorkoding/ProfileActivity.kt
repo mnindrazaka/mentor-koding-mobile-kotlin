@@ -1,9 +1,9 @@
 package com.example.aka.mentorkoding
 
+import android.support.v4.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
@@ -18,24 +18,28 @@ import com.example.aka.mentorkoding.databinding.ActivityProfileBinding
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.util.Base64
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import org.jetbrains.anko.support.v4.runOnUiThread
 
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : Fragment() {
 
     private lateinit var apolloClient: ApolloClient
     lateinit var binding: ActivityProfileBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater!!, R.layout.activity_profile, container, false)
         binding.imageViewPhoto.setOnClickListener { moveToUpdateProfile(UpdateProfilePictureActivity::class.java) }
         binding.cardViewBasic.setOnClickListener { moveToUpdateProfile(UpdateProfileBasicActivity::class.java) }
         binding.cardViewSkill.setOnClickListener { moveToUpdateProfile(UpdateProfileSkillActivity::class.java) }
         binding.cardViewSosmed.setOnClickListener { moveToUpdateProfile(UpdateProfileSosmedActivity::class.java) }
         binding.buttonLogout.setOnClickListener { logout() }
 
-        apolloClient = ApolloGateway(this).createClient()
+        apolloClient = ApolloGateway(context!!).createClient()
         getProfile()
+        return binding.root
     }
 
     private fun getProfile() {
@@ -46,7 +50,7 @@ class ProfileActivity : AppCompatActivity() {
             .enqueue(object : ApolloCall.Callback<ProfileQuery.Data>() {
                 override fun onFailure(e: ApolloException) {
                     runOnUiThread {
-                        Toast.makeText(applicationContext, e.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onResponse(response: Response<ProfileQuery.Data>) {
@@ -61,20 +65,20 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         binding.recyclerViewSkill.adapter = SkillAdapter(binding.profile!!.skills()!!) {}
-        binding.recyclerViewSkill.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewSkill.layoutManager = LinearLayoutManager(activity)
     }
 
     private fun setupPhoto(encodedImage : String?): Bitmap? {
-        if (!encodedImage.isNullOrEmpty()) {
+        return if (!encodedImage.isNullOrEmpty()) {
             val decodedString = Base64.decode(encodedImage, Base64.DEFAULT)
-            return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size) as Nothing?
+            BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size) as Nothing?
         } else {
-            return null
+            null
         }
     }
 
-    private fun moveToUpdateProfile(activity : Class<*>) {
-        val intent = Intent(this, activity)
+    private fun moveToUpdateProfile(activityUpdate : Class<*>) {
+        val intent = Intent(activity, activityUpdate)
         startActivity(intent)
     }
 
@@ -84,11 +88,11 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun clearToken() {
-        getSharedPreferences("auth", Context.MODE_PRIVATE).edit().remove("token").apply()
+        context!!.getSharedPreferences("auth", Context.MODE_PRIVATE).edit().remove("token").apply()
     }
 
     private fun moveToLogin() {
-        val intent = Intent(this, SigninActivity::class.java)
+        val intent = Intent(context, SigninActivity::class.java)
         startActivity(intent)
     }
 }
