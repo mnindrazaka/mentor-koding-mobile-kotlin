@@ -1,5 +1,6 @@
 package com.example.aka.mentorkoding
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
@@ -24,6 +25,7 @@ class MentorProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_mentor_profile)
+        binding.buttonCreateMeetup.setOnClickListener { createMeetup() }
         apolloClient = ApolloGateway(this).createClient()
         getProfile()
     }
@@ -60,5 +62,12 @@ class MentorProfileActivity : AppCompatActivity() {
             val decodedString = Base64.decode(encodedImage, Base64.DEFAULT)
             binding.imageViewPhoto.setImageBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size))
         }
+    }
+
+    private fun createMeetup() {
+        val intent = Intent(this, CreateMeetupActivity::class.java)
+        intent.putExtra("username", binding.profile!!.username())
+        intent.putExtra("_id", binding.profile!!._id())
+        startActivity(intent)
     }
 }

@@ -42,6 +42,8 @@
     </activity>
     <activity android:name=".MentorProfileActivity">
     </activity>
+    <activity android:name=".CreateMeetupActivity">
+    </activity>
   </application>
 
 </manifest>
