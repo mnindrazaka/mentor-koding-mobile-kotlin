@@ -205,6 +205,13 @@
                                 android:text="@{profile.socialMedia().instagram()}"/>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
+
+                <Switch
+                  android:checked="@{profile.isMentor()}"
+                  android:id="@+id/switch_mentor"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:hint="Mentor"/>
             </LinearLayout>
         </ScrollView>
 

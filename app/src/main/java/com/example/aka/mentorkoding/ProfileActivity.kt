@@ -20,6 +20,8 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.apollographql.apollo.sample.UpdateUserMutation
+import com.apollographql.apollo.sample.type.UserUpdate
 import org.jetbrains.anko.support.v4.runOnUiThread
 
 
@@ -34,6 +36,7 @@ class ProfileActivity : Fragment() {
         binding.cardViewBasic.setOnClickListener { moveToUpdateProfile(UpdateProfileBasicActivity::class.java) }
         binding.cardViewSkill.setOnClickListener { moveToUpdateProfile(UpdateProfileSkillActivity::class.java) }
         binding.cardViewSosmed.setOnClickListener { moveToUpdateProfile(UpdateProfileSosmedActivity::class.java) }
+        binding.switchMentor.setOnCheckedChangeListener { compoundButton, b -> updateMentorStatus(b)  }
         binding.buttonLogout.setOnClickListener { logout() }
 
         apolloClient = ApolloGateway(context!!).createClient()
@@ -91,5 +94,25 @@ class ProfileActivity : Fragment() {
     private fun moveToLogin() {
         val intent = Intent(context, SigninActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun updateMentorStatus(isMentor: Boolean) {
+        val user = UserUpdate.builder().isMentor(isMentor).build()
+        val updateUserMutation = UpdateUserMutation.builder().user(user).build()
+        apolloClient
+            .mutate(updateUserMutation)
+            .enqueue(object : ApolloCall.Callback<UpdateUserMutation.Data>() {
+                override fun onFailure(e: ApolloException) {
+                    runOnUiThread {
+                        Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onResponse(response: Response<UpdateUserMutation.Data>) {
+                    runOnUiThread {
+                        Toast.makeText(activity, "Mentor Status Changed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
     }
 }
